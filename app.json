@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "periodic-table",
+    "slug": "periodic-table",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

@@ -37,11 +37,11 @@ export default function App() {
                 <View style={styles.taskContainer}>
                     {task.length < 1 ? <Text style={styles.noTask}>No task to complete!</Text> : <Text style={styles.noTask}>{task.length} tasks to complete!</Text>}
                     {task.map((item, index) => (
-                        <Pressable style={styles.task} onPress={handleAddBtn}>
-                            <Text key={index} style={styles.task}>
-                                {item}
-                            </Text>
-                        </Pressable>
+                        // <Pressable style={styles.task} onPress={handleAddBtn}>
+                        <Text key={index} style={styles.task}>
+                            {item}
+                        </Text>
+                        // </Pressable>
                     ))}
                 </View>
                 {task.length > 0 && (
@@ -117,8 +117,7 @@ const styles = StyleSheet.create({
         width: "85%",
         marginVertical: 3,
         backgroundColor: "#0080ff",
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        padding: 10,
         borderRadius: 5,
         fontSize: 17,
         color: "#fff",

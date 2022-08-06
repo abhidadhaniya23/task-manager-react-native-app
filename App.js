@@ -1,21 +1,131 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { StyleSheet, Text, View, TextInput, ScrollView, Pressable } from "react-native";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const [task, setTask] = React.useState([]);
+    const [input, setInput] = React.useState("");
+    const [deleteTask, setDeleteTask] = React.useState("");
+
+    const handleAddBtn = () => {
+        if (input !== "") {
+            setTask([...task, input]);
+            setInput("");
+        } else {
+            alert("Please enter a task!");
+        }
+    };
+    const handleDeleteBtn = () => {};
+
+    const handleDeleteAllTasks = () => {
+        setTask([]);
+    };
+
+    return (
+        <>
+            <View style={styles.container}>
+                <Text style={styles.heading}>Task manager</Text>
+                <View style={styles.inputContainer}>
+                    <TextInput style={styles.input} value={input} onChangeText={(inputTask) => setInput(inputTask)} placeholder="Enter task" />
+                    <Pressable style={styles.taskBtn} onPress={handleAddBtn}>
+                        <Text style={styles.btnText}>+ Add</Text>
+                    </Pressable>
+                </View>
+            </View>
+
+            <ScrollView>
+                <View style={styles.taskContainer}>
+                    {task.length < 1 ? <Text style={styles.noTask}>No task to complete!</Text> : <Text style={styles.noTask}>{task.length} tasks to complete!</Text>}
+                    {task.map((item, index) => (
+                        <Pressable style={styles.task} onPress={handleAddBtn}>
+                            <Text key={index} style={styles.task}>
+                                {item}
+                            </Text>
+                        </Pressable>
+                    ))}
+                </View>
+                {task.length > 0 && (
+                    <Pressable style={styles.deleteAllBtn} onPress={handleDeleteAllTasks}>
+                        <Text style={styles.deleteAllBtn}>Delete All Tasks</Text>
+                    </Pressable>
+                )}
+            </ScrollView>
+            <StatusBar style="auto" />
+        </>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        backgroundColor: "#001c38",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    inputContainer: {
+        marginTop: 15,
+        marginBottom: 30,
+        flexDirection: "row",
+        justifyContent: "center",
+        width: "90%",
+        alignItems: "center",
+    },
+    input: {
+        width: "70%",
+        borderRadius: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        backgroundColor: "#fff",
+        color: "#000",
+    },
+    taskBtn: {
+        paddingVertical: 13,
+        marginLeft: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        backgroundColor: "#0080ff",
+    },
+    deleteAllBtn: {
+        borderRadius: 5,
+        alignSelf: "center",
+        color: "#fff",
+        paddingHorizontal: 15,
+        paddingVertical: 8,
+        backgroundColor: "#001c38",
+    },
+    noTask: {
+        marginVertical: 10,
+        fontSize: 17,
+    },
+    btnText: {
+        color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    heading: {
+        marginTop: 70,
+        paddingBottom: 20,
+        fontSize: 40,
+        color: "white",
+    },
+    taskContainer: {
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        marginVertical: 20,
+    },
+    task: {
+        width: "85%",
+        marginVertical: 3,
+        backgroundColor: "#0080ff",
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 5,
+        fontSize: 17,
+        color: "#fff",
+    },
+    completedTask: {
+        color: "#fff",
+        textDecorationLine: "line-through",
+        textDecorationStyle: "solid",
+    },
 });
